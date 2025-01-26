@@ -1,4 +1,3 @@
-// /src/pages/Admin.jsx
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, Container, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -8,7 +7,6 @@ const AdminPage = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    // Fetch users when the page loads
     const fetchUsers = async () => {
       try {
         const response = await axios.get(

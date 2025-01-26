@@ -1,4 +1,3 @@
-// /src/pages/CalculatorPage.js (or wherever you use LoanCalculator)
 import React, { useState } from "react";
 import LoanCalculator from "../components/LoanCalculator";
 

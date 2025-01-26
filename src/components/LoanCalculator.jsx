@@ -19,8 +19,7 @@ const LoanCalculator = ({ setLoanDetails }) => {
   const [loanPeriod, setLoanPeriod] = useState(1);
 
   const handleCalculate = () => {
-    // Dummy logic for loan calculation
-    const loanAmount = category === "Wedding" ? 500000 : 1000000; // Example loan amounts
+    const loanAmount = category === "Wedding" ? 500000 : 1000000;
     const monthlyInstallment = loanAmount / loanPeriod;
 
     setLoanDetails({
@@ -36,7 +35,7 @@ const LoanCalculator = ({ setLoanDetails }) => {
     <Box
       sx={{
         p: 3,
-        maxWidth: isSmallScreen ? "100%" : 400, // Full width on small screens
+        maxWidth: isSmallScreen ? "100%" : 400,
         mx: "auto",
         borderRadius: 2,
         boxShadow: 3,

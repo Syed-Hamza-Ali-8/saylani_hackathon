@@ -1,6 +1,5 @@
-// /src/pages/LoanRequestPage.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // For navigating to dashboard
+import { useNavigate } from "react-router-dom";
 import {
   TextField,
   Button,
@@ -19,7 +18,7 @@ const LoanRequestPage = () => {
   ]);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate(); // Hook to navigate to Dashboard
+  const navigate = useNavigate();
 
   const handleChange = (index, e) => {
     const newGuarantors = [...guarantors];
@@ -30,7 +29,6 @@ const LoanRequestPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate form fields
     const isValid = guarantors.every(
       (guarantor) =>
         guarantor.name &&
@@ -44,32 +42,31 @@ const LoanRequestPage = () => {
       return;
     }
 
-    // Clear error message if validation passed
     setErrorMessage("");
 
-    // Mock submission logic (Replace with API call)
     console.log("Loan request submitted", guarantors);
 
-    // Show success message (Snackbar)
     setOpenSnackbar(true);
 
-    // Mock storing loan data
-    localStorage.setItem("loanRequest", JSON.stringify(guarantors));
+    const storedApplications = localStorage.getItem("loanRequests");
+    const applicationsArray = storedApplications
+      ? JSON.parse(storedApplications)
+      : [];
+    applicationsArray.push(guarantors);
+    localStorage.setItem("loanRequests", JSON.stringify(applicationsArray));
 
-    // Clear form fields
     setGuarantors([
       { name: "", email: "", cnic: "" },
       { name: "", email: "", cnic: "" },
     ]);
 
-    // Redirect to the Dashboard
     setTimeout(() => {
-      navigate("/dashboard"); // Navigates to DashboardPage after submission
+      navigate("/dashboard");
     }, 2000);
   };
 
   const handleCloseSnackbar = () => {
-    setOpenSnackbar(false); // Close the Snackbar
+    setOpenSnackbar(false);
   };
 
   return (
@@ -138,7 +135,6 @@ const LoanRequestPage = () => {
         </form>
       </Box>
 
-      {/* Snackbar for success message */}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={3000}

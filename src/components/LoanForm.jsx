@@ -1,4 +1,3 @@
-// /src/components/LoanForm.js
 import React, { useState } from "react";
 
 const LoanForm = ({ onSubmit }) => {

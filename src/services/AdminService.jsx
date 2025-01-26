@@ -1,9 +1,7 @@
-// /src/services/adminService.js
 import axios from "axios";
 
-const API_URL = "http://your-api-url.com"; // Replace with your backend API URL
+const API_URL = "http://localhost:3000"; 
 
-// Get all loan applications (admin functionality)
 export const getAllApplications = async () => {
   try {
     const response = await axios.get(`${API_URL}/admin/applications`);
@@ -13,7 +11,6 @@ export const getAllApplications = async () => {
   }
 };
 
-// Add token number to a loan application (admin functionality)
 export const addTokenNumber = async (applicationId, tokenNumber) => {
   try {
     const response = await axios.put(
@@ -26,7 +23,6 @@ export const addTokenNumber = async (applicationId, tokenNumber) => {
   }
 };
 
-// Filter applications by city or country (admin functionality)
 export const filterApplications = async (filters) => {
   try {
     const response = await axios.get(`${API_URL}/admin/applications`, {

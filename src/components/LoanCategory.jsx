@@ -1,4 +1,3 @@
-// /src/components/LoanCategory.js
 import React from "react";
 import { Link } from "react-router-dom";
 import {
@@ -9,16 +8,15 @@ import {
   Grid,
   Box,
 } from "@mui/material";
-import { Favorite, Home, Business, School } from "@mui/icons-material"; // Use Favorite for Wedding icon
+import { Favorite, Home, Business, School } from "@mui/icons-material";
 
 const LoanCategory = () => {
   const categories = [
-    { name: "Wedding Loans", path: "/calculator", icon: <Favorite /> }, // Favorite as Wedding icon
+    { name: "Wedding Loans", path: "/calculator", icon: <Favorite /> },
     { name: "Home Construction Loans", path: "/calculator", icon: <Home /> },
     { name: "Business Startup Loans", path: "/calculator", icon: <Business /> },
     { name: "Education Loans", path: "/calculator", icon: <School /> },
   ];
-  
 
   return (
     <Box sx={{ p: 3, textAlign: "center" }}>
@@ -40,11 +38,10 @@ const LoanCategory = () => {
                     justifyContent: "center",
                   }}
                 >
-                  {category.icon} {/* Display the icon */}
+                  {category.icon}
                   <span style={{ marginLeft: "8px" }}>
                     {category.name}
                   </span>{" "}
-                  {/* Add space between icon and text */}
                 </Typography>
                 <Button
                   variant="contained"

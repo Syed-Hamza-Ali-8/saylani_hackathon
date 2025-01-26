@@ -10,17 +10,18 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [cnic, setCnic] = useState("");
-  const [password, setPassword] = useState(""); // Added password input
+  const [password, setPassword] = useState(""); 
   const [error, setError] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const RegisterPage = () => {
       cnic,
       email,
       name,
-      password, // Include the password
+      password,
     };
 
     const requestOptions = {
@@ -48,28 +49,21 @@ const RegisterPage = () => {
       );
 
       if (!response.ok) {
-        const data = await response.json();
-        if (data.msg && data.msg.includes("already exists")) {
-          setError("Email already exists. Please try another.");
-        } else {
-          setError("Registration failed. Please try again.");
-        }
         throw new Error("Registration failed");
       }
 
-      const result = await response.json(); // Parse the JSON response
+      const result = await response.json(); 
       console.log("Registration successful:", result);
 
       setIsSuccess(true);
-      setError(""); // Clear any previous error
+      setError(""); 
 
-      // Redirect to the login page after successful registration
       setTimeout(() => {
-        navigate("/login"); // Redirect to login page
-      }, 2000); // Redirect after a delay to let the user see the success message
+        navigate("/login");
+      }, 2000);
     } catch (err) {
       console.error("Error during registration:", err);
-      // Error already set in response handling above
+      setError("Registration failed, please try again.");
     } finally {
       setLoading(false);
     }
@@ -86,7 +80,7 @@ const RegisterPage = () => {
       <Paper elevation={3} sx={{ padding: 3 }}>
         {isSuccess && (
           <Alert severity="success" sx={{ marginBottom: 2 }}>
-            Registration successful! Please log in.
+            Registration successful! Redirecting to login page...
           </Alert>
         )}
 

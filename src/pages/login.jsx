@@ -6,53 +6,58 @@ import {
   Button,
   Paper,
   Box,
-  Snackbar,
   CircularProgress,
+  Snackbar,
   Alert,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const userData = { email, password };
+    const loginData = {
+      email,
+      password,
+    };
 
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(loginData),
     };
 
     try {
       const response = await fetch(
-        "http://192.168.159.92:5000/api/auth/login",
+        "http://192.168.159.92:5000/api/user/login",
         requestOptions
       );
 
       if (!response.ok) {
-        throw new Error("Login failed");
+        throw new Error("Login failed. Please check your credentials.");
       }
 
-      const result = await response.json(); // Parse the JSON response
+      const result = await response.json();
       console.log("Login successful:", result);
 
-      // If login is successful, redirect to the dashboard
-      setTimeout(() => {
-        navigate("/dashboard"); // Redirect to the dashboard page
-      }, 2000); // Redirect after a short delay
+      // Save token or user data to local storage
+      localStorage.setItem("token", result.token); // Assuming the server response includes a "token"
+      localStorage.setItem("user", JSON.stringify(result.user)); // Save user data if available
+
+      // Redirect to the landing page
+      navigate("/");
     } catch (err) {
       console.error("Error during login:", err);
-      setError("Login failed, please try again.");
+      setError("Invalid email or password.");
     } finally {
       setLoading(false);
     }
@@ -73,42 +78,43 @@ const LoginPage = () => {
           </Alert>
         )}
 
-        <TextField
-          label="Email"
-          type="email"
-          fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          sx={{ marginBottom: 2 }}
-        />
-        <TextField
-          label="Password"
-          type="password"
-          fullWidth
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          sx={{ marginBottom: 2 }}
-        />
-
-        <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            disabled={loading}
+        <form onSubmit={handleLogin}>
+          <TextField
+            label="Email"
+            type="email"
             fullWidth
-            sx={{ padding: 1.5 }}
-            onClick={handleLogin}
-          >
-            {loading ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              "Submit"
-            )}
-          </Button>
-        </Box>
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            sx={{ marginBottom: 2 }}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            sx={{ marginBottom: 2 }}
+          />
+
+          <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={loading}
+              fullWidth
+              sx={{ padding: 1.5 }}
+            >
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Login"
+              )}
+            </Button>
+          </Box>
+        </form>
       </Paper>
 
       <Snackbar

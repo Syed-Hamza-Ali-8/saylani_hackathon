@@ -1,9 +1,7 @@
-// /src/services/loanService.js
 import axios from "axios";
 
-const API_URL = "http://your-api-url.com"; // Replace with your backend API URL
+const API_URL = "http://localhost:3000"; 
 
-// Submit a loan request
 export const submitLoanRequest = async (loanData) => {
   try {
     const response = await axios.post(`${API_URL}/loan-request`, loanData);
@@ -13,7 +11,6 @@ export const submitLoanRequest = async (loanData) => {
   }
 };
 
-// Get the loan details for a specific user
 export const getUserApplications = async () => {
   try {
     const response = await axios.get(`${API_URL}/user-loans`);
@@ -23,7 +20,6 @@ export const getUserApplications = async () => {
   }
 };
 
-// Calculate loan details (example function)
 export const calculateLoan = async (loanData) => {
   try {
     const response = await axios.post(`${API_URL}/calculate-loan`, loanData);

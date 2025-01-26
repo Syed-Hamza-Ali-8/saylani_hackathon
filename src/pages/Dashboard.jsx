@@ -1,4 +1,3 @@
-// /src/pages/DashboardPage.js
 import React, { useEffect, useState } from "react";
 import {
   Container,
@@ -17,10 +16,9 @@ const DashboardPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    // Fetch loan applications from localStorage (or use an API in real cases)
-    const storedApplications = localStorage.getItem("loanRequest");
+    const storedApplications = localStorage.getItem("loanRequests");
     if (storedApplications) {
-      setApplications([JSON.parse(storedApplications)]); // Assuming a single application
+      setApplications(JSON.parse(storedApplications));
     } else {
       setErrorMessage("No loan applications found.");
     }
@@ -36,7 +34,6 @@ const DashboardPage = () => {
           Your Loan Applications
         </Typography>
 
-        {/* Display error if no applications are found */}
         {errorMessage && (
           <Alert severity="warning" sx={{ mb: 2 }}>
             {errorMessage}

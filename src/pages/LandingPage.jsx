@@ -10,14 +10,12 @@ const LandingPage = () => {
   return (
     <div>
       <main>
-        {/* Center the h1 using Box component */}
         <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
           <Typography variant={isSmallScreen ? "h4" : "h1"} align="center">
             Welcome to Our Loan Portal
           </Typography>
         </Box>
 
-        {/* LoanCategory and LoanCalculator */}
         <Box sx={{ px: isSmallScreen ? 2 : 6, py: 3 }}>
           <LoanCategory />
         </Box>
